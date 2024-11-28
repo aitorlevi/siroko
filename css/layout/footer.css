@@ -1,0 +1,25 @@
+footer {
+  width: 100%;
+  background-color: var(--black-color);
+  color: var(--footer-color);
+  padding: 25px;
+  font-family: "Inconsolata", serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.38px;
+
+  a {
+    color: var(--white-color);
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    text-decoration-style: solid;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+
+  span:first-child {
+    display: block;
+    margin-bottom: 15px;
+  }
+}

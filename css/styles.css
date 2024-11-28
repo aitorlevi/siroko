@@ -1,0 +1,15 @@
+/* Import base styles */
+@import url("base/reset.css");
+
+/* Import utility styles */
+@import url("utils/variables.css");
+@import url("utils/mixins.css");
+@import url("utils/fonts.css");
+
+/* Import layout styles */
+@import url("layout/header.css");
+@import url("layout/footer.css");
+
+/* Import component styles */
+@import url("components/buttons.css");
+@import url("components/form.css");

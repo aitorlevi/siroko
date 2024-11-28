@@ -1,0 +1,17 @@
+:root {
+  --background-color: #311429;
+  --secondary-color: #339b95;
+  --white-color: #ffffff;
+  --white-rgb-color: 255, 255, 255;
+  --black-color: #000000;
+
+  --pill-color: #2c5e5b;
+  --pill-background-color: #5dc2bd;
+
+  --label-step-color: #efe5c3;
+  --option-active-color: #c92f58;
+
+  --footer-color: #bbbbbb;
+
+  --transition-speed-fast: 0.2s;
+}

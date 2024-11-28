@@ -1,0 +1,39 @@
+@font-face {
+  font-family: "Liberator";
+  src: url("../../assets/fonts/Liberator/LiberatorSIROKO-Medium.ttf")
+    format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Liberator";
+  src: url("../../assets/fonts/Liberator/LiberatorSIROKO-Heavy.ttf")
+    format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Liberator";
+  src: url("../../assets/fonts/Liberator/LiberatorSIROKO-Thin.ttf")
+    format("truetype");
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Liberator";
+  src: url("../../assets/fonts/Liberator/LiberatorSIROKO-Light.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Liberator";
+  src: url("../../assets/fonts/Liberator/LiberatorSIROKO-Outline.ttf")
+    format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

@@ -1,0 +1,37 @@
+{
+  "steps": [
+    {
+      "pill": "Paso 1 de 2",
+      "title": "¡Vamos allá!",
+      "copy": "Has llegado hasta el test de Siroko. Responde las siguientes preguntas y genera tu código premiado a medida.",
+      "step_label": "Uso siroko desde...",
+      "option_name": "year",
+      "options": [
+        { "value": "2016", "label": "2016" },
+        { "value": "2017", "label": "2017" },
+        { "value": "2018", "label": "2018" },
+        { "value": "2019", "label": "2019" },
+        { "value": "2020", "label": "2020" },
+        { "value": "2021", "label": "2021" }
+      ],
+      "button_copy": "Siguiente"
+    },
+    {
+      "pill": "Paso 2 de 2",
+      "title": "Vamos, una más",
+      "copy": "",
+      "step_label": "Por unas gafas siroko, yo...",
+      "option_name": "action",
+      "options": [
+        { "value": "Segaría la navaja", "label": "Segaría la navaja" },
+        { "value": "Rechazaría un cachopo", "label": "Rechazaría un cachopo" },
+        {
+          "value": "Renunciaría a mis tierras",
+          "label": "Renunciaría a mis tierras"
+        },
+        { "value": "Regalaría una ternera", "label": "Regalaría una ternera" }
+      ],
+      "button_copy": "Siguiente"
+    }
+  ]
+}

@@ -33,5 +33,11 @@
       ],
       "button_copy": "Siguiente"
     }
-  ]
+  ],
+  "reward": {
+    "pill": "Tu premio está listo",
+    "title": "¡Enhorabuena!",
+    "label": "Lo prometido es deuda",
+    "copy": "Introduce este código en tu próxima compra para conseguir tu premio. ¡Disponible durante 20 minutos!"
+  }
 }

@@ -1,6 +1,8 @@
 :root {
   --background-color: #311429;
   --secondary-color: #339b95;
+
+  --gradient-color: #bdbdbd;
   --white-color: #ffffff;
   --white-rgb-color: 255, 255, 255;
   --black-color: #000000;
@@ -11,7 +13,14 @@
   --label-step-color: #efe5c3;
   --option-active-color: #c92f58;
 
+  --timer-background-color: #2c0c23;
+  --timer-expired-background-color: #c51414;
+
   --footer-color: #bbbbbb;
 
   --transition-speed-fast: 0.2s;
+
+  --success-alert-color: #4caf50;
+  --info-alert-color: #2196f3;
+  --error-alert-color: #f44336;
 }

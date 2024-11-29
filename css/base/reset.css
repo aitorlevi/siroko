@@ -10,25 +10,16 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Inconsolata", serif;
   background-color: var(--background-color);
   background-image: url("../../assets/images/background.jpg");
   height: 100vh;
-  width: 100vw;
   background-size: cover;
   background-position: center top;
   color: var(--white-color);
   line-height: 1.5;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  padding: 25px;
+  display: grid;
+  grid-template-rows: 1fr auto;
 }
 
 h2 {
@@ -36,4 +27,14 @@ h2 {
   font-weight: 800;
   font-size: 35px;
   line-height: 35px;
+}
+
+a {
+  color: var(--white-color);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  text-decoration-style: solid;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
 }

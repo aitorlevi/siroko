@@ -1,8 +1,5 @@
+import { updateText } from "../utils/helpers.js";
 const form = document.getElementById("multiStepForm");
-const radioButtonsContainer = document.getElementById("radioButtonsContainer");
-const stepPill = document.getElementById("stepPill");
-const headerTitle = document.getElementById("headerTitle");
-const labelStep = document.getElementById("labelStep");
 const radioContainers = form.querySelectorAll(".radio-container");
 let currentStep = 0,
   stepData = [];
@@ -25,13 +22,13 @@ const saveData = () => {
   switch (currentStep) {
     case 0:
       localStorage.setItem(
-        "selectedYear",
+        "year",
         document.querySelector("input[name='year']:checked").value
       );
       break;
     case 1:
       localStorage.setItem(
-        "selectedAction",
+        "action",
         document.querySelector("input[name='action']:checked").value
       );
       break;
@@ -53,15 +50,15 @@ export const nextStep = () => {
 
 // Function to check if selections are in localStorage
 const checkSelections = () => {
-  const selectedYear = localStorage.getItem("selectedYear");
-  const selectedAction = localStorage.getItem("selectedAction");
+  const selectedYear = localStorage.getItem("year");
+  const selectedAction = localStorage.getItem("action");
   return selectedYear !== null && selectedAction !== null;
 };
 
 // Function to show the reward container and hide the form
 const showReward = () => {
   form.style.display = "none";
-  document.getElementById("rewardContainer").style.display = "block";
+  document.getElementById("rewardContainer").style.display = "flex";
 };
 
 // Function to display the current step
@@ -71,9 +68,7 @@ const showStep = (stepNumber) => {
     stepElement.style.display = index === stepNumber ? "flex" : "none";
   });
 
-  stepPill.textContent = step.pill;
-  headerTitle.textContent = step.title;
-  labelStep.textContent = step.label_step;
+  updateText(step);
 
   if (step.copy) {
     if (document.getElementById("headerCopy") === null) {
@@ -115,8 +110,6 @@ const showStep = (stepNumber) => {
 };
 
 // Add event listeners to next buttons
-document.querySelectorAll(".next-button").forEach((button) => {
-  button.addEventListener("click", () => {
-    saveData();
-  });
+document.getElementById("nextButton").addEventListener("click", () => {
+  saveData();
 });

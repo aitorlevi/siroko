@@ -1,10 +1,37 @@
 main {
-  background-color: var(--background-color);
-  padding: 25px;
-  border-radius: 3px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 25px;
+  padding: 25px;
+  @media only screen and (min-width: 768px) {
+    padding: 35px;
+  }
+  @media only screen and (min-width: 1024px) {
+    padding: 50px 250px;
+  }
+
+  .header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    .step-pill {
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      font-size: 9px;
+      line-height: 10.89px;
+      text-transform: uppercase;
+      background-color: var(--pill-background-color);
+      color: var(--pill-color);
+      width: fit-content;
+      padding: 3px 7px;
+      border-radius: 3px;
+    }
+    .copy {
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 18.72px;
+    }
+  }
 
   .sub-title {
     font-family: "Inter", sans-serif;

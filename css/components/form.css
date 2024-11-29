@@ -1,16 +1,19 @@
-@import url("../utils/mixins.css");
-
 .multi-step-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  background-color: var(--background-color);
+  padding: 25px;
+  border-radius: 3px;
+  @media only screen and (min-width: 768px) {
+    padding: 20px;
+  }
 
   .step-form {
     display: none;
     flex-direction: column;
     gap: 10px;
     border: none;
-    font-family: "Inconsolata", serif;
     font-weight: 400;
     font-size: 15px;
     line-height: 17.55px;
@@ -23,9 +26,14 @@
       border-radius: 4px;
       background-color: rgba(var(--white-rgb-color), 0.09);
       transition: background-color var(--transition-speed-fast);
+      cursor: pointer;
 
       &.selected {
         background-color: var(--option-active-color);
+      }
+
+      &:hover {
+        background-color: rgba(var(--white-rgb-color), 0.2);
       }
     }
   }

@@ -29,16 +29,71 @@
       </header>
 
       <main>
-        <form class="form" id="multiStepForm">
-          <p class="label-step" id="labelStep"></p>
-          <div class="radio-buttons-container" id="radioButtonsContainer"></div>
+        <form class="multi-step-form" id="multiStepForm">
+          <span class="sub-title" id="labelStep"></span>
+          <div class="step-form">
+            <span class="radio-container selected">
+              <input type="radio" name="year" value="2016" checked />
+              <label for="2016">2016</label>
+            </span>
+            <span class="radio-container">
+              <input type="radio" name="year" value="2017" />
+              <label for="2017">2017</label>
+            </span>
+            <span class="radio-container">
+              <input type="radio" name="year" value="2018" />
+              <label for="2018">2018</label>
+            </span>
+            <span class="radio-container">
+              <input type="radio" name="year" value="2019" />
+              <label for="2019">2019</label>
+            </span>
+            <span class="radio-container">
+              <input type="radio" name="year" value="2020" />
+              <label for="2020">2020</label>
+            </span>
+            <span class="radio-container">
+              <input type="radio" name="year" value="2021" />
+              <label for="2021">2021</label>
+            </span>
+          </div>
+          <div class="step-form">
+            <span class="radio-container selected">
+              <input
+                type="radio"
+                name="action"
+                value="Segaría la navaja"
+                checked
+              />
+              <label for="Segaría la navaja">Segaría la navaja</label>
+            </span>
+            <span class="radio-container">
+              <input type="radio" name="action" value="Rechazaría un cachopo" />
+              <label for="Rechazaría un cachopo">Rechazaría un cachopo</label>
+            </span>
+            <span class="radio-container">
+              <input
+                type="radio"
+                name="action"
+                value="Renunciaría a mis tierras"
+              />
+              <label for="Renunciaría a mis tierras"
+                >Renunciaría a mis tierras</label
+              >
+            </span>
+            <span class="radio-container">
+              <input type="radio" name="action" value="Regalaría una ternera" />
+              <label for="Regalaría una ternera">Regalaría una ternera</label>
+            </span>
+          </div>
           <button type="button" class="button next-button">
             <span>Siguiente</span>
             <img src="./assets/images/arrow.svg" />
           </button>
         </form>
+
         <div class="reward" id="rewardContainer">
-          <p class="label-step" id="labelStep">Lo prometido es deuda</p>
+          <p class="sub-title">Lo prometido es deuda</p>
           <div class="code"></div>
           <p class="copy">
             Introduce este código en tu próxima compra para conseguir tu premio.

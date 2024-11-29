@@ -3,8 +3,8 @@ const radioButtonsContainer = document.getElementById("radioButtonsContainer");
 const stepPill = document.getElementById("stepPill");
 const headerTitle = document.getElementById("headerTitle");
 const labelStep = document.getElementById("labelStep");
-let radioContainers = null,
-  currentStep = 0,
+const radioContainers = form.querySelectorAll(".radio-container");
+let currentStep = 0,
   stepData = [];
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -13,14 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((response) => response.json())
     .then((data) => {
       stepData = data.steps;
-
-      // Create fieldsets for each step
-      stepData.forEach((step, index) => {
-        const fieldset = document.createElement("fieldset");
-        fieldset.classList.add("form-step");
-        fieldset.id = `step${index}`;
-        radioButtonsContainer.appendChild(fieldset);
-      });
 
       // Show the initial step
       showStep(currentStep);
@@ -50,55 +42,55 @@ const saveData = () => {
 };
 
 // Function to move to the next step
-const nextStep = () => {
+export const nextStep = () => {
   if (currentStep < stepData.length - 1) {
     currentStep++;
     showStep(currentStep);
+  } else {
+    checkSelections() && showReward();
   }
+};
+
+// Function to check if selections are in localStorage
+const checkSelections = () => {
+  const selectedYear = localStorage.getItem("selectedYear");
+  const selectedAction = localStorage.getItem("selectedAction");
+  return selectedYear !== null && selectedAction !== null;
+};
+
+// Function to show the reward container and hide the form
+const showReward = () => {
+  form.style.display = "none";
+  document.getElementById("rewardContainer").style.display = "block";
 };
 
 // Function to display the current step
 const showStep = (stepNumber) => {
   const step = stepData[stepNumber];
-  form.querySelectorAll(".form-step").forEach((stepElement, index) => {
+  form.querySelectorAll(".step-form").forEach((stepElement, index) => {
     stepElement.style.display = index === stepNumber ? "flex" : "none";
   });
-  const currentFieldset = document.getElementById(`step${currentStep}`);
 
   stepPill.textContent = step.pill;
   headerTitle.textContent = step.title;
-  labelStep.textContent = step.step_label;
+  labelStep.textContent = step.label_step;
 
   if (step.copy) {
-    const headerCopyContainer = document.createElement("span");
-    headerCopyContainer.classList.add("copy");
-    headerCopyContainer.id = "headerCopy";
-    headerCopyContainer.textContent = step.copy;
-    document.getElementById("headerContent").appendChild(headerCopyContainer);
+    if (document.getElementById("headerCopy") === null) {
+      const headerCopyContainer = document.createElement("span");
+      headerCopyContainer.classList.add("copy");
+      headerCopyContainer.id = "headerCopy";
+      headerCopyContainer.textContent = step.copy;
+      document.getElementById("headerContent").appendChild(headerCopyContainer);
+    } else {
+      document.getElementById("headerCopy").textContent = step.copy;
+    }
   } else {
     const headerCopyContainer = document.getElementById("headerCopy");
     if (headerCopyContainer) {
       headerCopyContainer.remove();
     }
   }
-
-  // Add options to the current step
-  step.options.forEach((option, index) => {
-    let optionContainer = document.createElement("span");
-
-    optionContainer.classList.add("radio-container");
-    if (index === 0) optionContainer.classList.add("selected");
-
-    optionContainer.innerHTML = `
-      <input type="radio" name="${step.option_name}" value="${option.value}" ${
-      index === 0 ? "checked" : ""
-    } />
-      <label for="${option.value}">${option.label}</label>
-    `;
-    currentFieldset.appendChild(optionContainer);
-  });
-
-  radioContainers = form.querySelectorAll(".radio-container");
 
   // Add event listeners to radio-container elements
   radioContainers.forEach((container) => {

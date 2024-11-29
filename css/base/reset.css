@@ -19,7 +19,6 @@ body {
   background-position: center top;
   color: var(--white-color);
   line-height: 1.5;
-  margin: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -32,23 +31,9 @@ body {
   padding: 25px;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  padding: 0;
-}
-
 h2 {
   font-family: "Liberator", sans-serif;
   font-weight: 800;
   font-size: 35px;
   line-height: 35px;
-}
-
-p {
-  margin: 0 0 1em;
 }

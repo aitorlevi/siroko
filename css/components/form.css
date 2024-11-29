@@ -1,69 +1,31 @@
-.form {
-  .label-step {
-    font-family: "Inter", sans-serif;
-    font-weight: 700;
-    font-size: 12px;
-    line-height: 16.44px;
-    text-transform: uppercase;
-    color: var(--label-step-color);
-    margin-bottom: 10px;
-  }
+@import url("../utils/mixins.css");
 
-  .radio-buttons-container {
-    margin-bottom: 10px;
-    .form-step {
-      display: none;
-      border: none;
-      flex-direction: column;
-      font-family: "Inconsolata", serif;
-      font-weight: 400;
-      font-size: 15px;
-      line-height: 17.55px;
+.multi-step-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .step-form {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    border: none;
+    font-family: "Inconsolata", serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 17.55px;
+
+    .radio-container {
+      display: flex;
+      align-items: center;
       gap: 10px;
+      padding: 12px;
+      border-radius: 4px;
+      background-color: rgba(var(--white-rgb-color), 0.09);
+      transition: background-color var(--transition-speed-fast);
 
-      .radio-container {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px;
-        border-radius: 4px;
-        background-color: rgba(var(--white-rgb-color), 0.09);
-        transition: background-color var(--transition-speed-fast);
-
-        &.selected {
-          background-color: var(--option-active-color);
-        }
-
-        input[type="radio"] {
-          width: 20px;
-          height: 20px;
-          -webkit-appearance: none;
-          appearance: none;
-          background-color: transparent;
-          border: 2px solid var(--white-color);
-          border-radius: 50%;
-          margin: 0;
-
-          &::before {
-            content: "";
-            display: block;
-            width: 10px;
-            height: 10px;
-            margin: 3px;
-            border-radius: 50%;
-            box-shadow: inset 7px 7px var(--white-color);
-            transition: transform var(--transition-speed-fast) ease-in-out;
-            transform: scale(0);
-          }
-
-          &:checked::before {
-            transform: scale(1);
-          }
-        }
-      }
-
-      &.active {
-        display: flex;
+      &.selected {
+        background-color: var(--option-active-color);
       }
     }
   }

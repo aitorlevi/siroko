@@ -3,7 +3,6 @@
 
 /* Import utility styles */
 @import url("utils/variables.css");
-@import url("utils/mixins.css");
 @import url("utils/fonts.css");
 
 /* Import layout styles */
@@ -14,3 +13,5 @@
 /* Import component styles */
 @import url("components/buttons.css");
 @import url("components/form.css");
+@import url("components/radio.css");
+@import url("components/reward.css");

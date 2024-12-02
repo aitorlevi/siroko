@@ -4,20 +4,56 @@ const radioContainers = form.querySelectorAll(".radio-container");
 let currentStep = 0,
   stepData = [];
 
+/**
+ * Fetches form data and initializes the form steps.
+ */
 document.addEventListener("DOMContentLoaded", () => {
-  // Fetch form data from JSON file
   fetch("../../formData.json")
     .then((response) => response.json())
     .then((data) => {
       stepData = data.steps;
-
-      // Show the initial step
       showStep(currentStep);
     })
     .catch((error) => console.error("Error fetching form data:", error));
+
+  /**
+   * Event listener for the next button to save data and move to the next step.
+   */
+  document.getElementById("nextButton").addEventListener("click", () => {
+    saveData();
+  });
+
+  /**
+   * Selects the first radio input element within the specified container.
+   *
+   * @type {HTMLInputElement}
+   */
+  radioContainers.forEach((container) => {
+    const radioInput = container.querySelector("input[type='radio']");
+    container.addEventListener("click", () => {
+      if (radioInput) {
+        radioInput.checked = true;
+        radioInput.dispatchEvent(new Event("change"));
+      }
+    });
+
+    /**
+     * Event listener for the radio input element to update the selected container.
+     */
+    radioInput.addEventListener("change", () => {
+      radioContainers.forEach((element) =>
+        element.classList.remove("selected")
+      );
+      if (radioInput.checked) {
+        container.classList.add("selected");
+      }
+    });
+  });
 });
 
-// Function to save data based on the current step
+/**
+ * Saves data to localStorage based on the current step.
+ */
 const saveData = () => {
   switch (currentStep) {
     case 0:
@@ -38,7 +74,9 @@ const saveData = () => {
   nextStep();
 };
 
-// Function to move to the next step
+/**
+ * Moves to the next step in the form.
+ */
 export const nextStep = () => {
   if (currentStep < stepData.length - 1) {
     currentStep++;
@@ -48,20 +86,30 @@ export const nextStep = () => {
   }
 };
 
-// Function to check if selections are in localStorage
+/**
+ * Checks if all required selections are made.
+ *
+ * @returns {boolean} True if all required selections are made, false otherwise.
+ */
 const checkSelections = () => {
   const selectedYear = localStorage.getItem("year");
   const selectedAction = localStorage.getItem("action");
   return selectedYear !== null && selectedAction !== null;
 };
 
-// Function to show the reward container and hide the form
+/**
+ * Displays the reward container.
+ */
 const showReward = () => {
   form.style.display = "none";
   document.getElementById("rewardContainer").style.display = "flex";
 };
 
-// Function to display the current step
+/**
+ * Displays the current step in the form.
+ *
+ * @param {number} stepNumber - The step number to display.
+ */
 const showStep = (stepNumber) => {
   const step = stepData[stepNumber];
   form.querySelectorAll(".step-form").forEach((stepElement, index) => {
@@ -86,30 +134,4 @@ const showStep = (stepNumber) => {
       headerCopyContainer.remove();
     }
   }
-
-  // Add event listeners to radio-container elements
-  radioContainers.forEach((container) => {
-    const radioInput = container.querySelector("input[type='radio']");
-    container.addEventListener("click", () => {
-      if (radioInput) {
-        radioInput.checked = true;
-        radioInput.dispatchEvent(new Event("change"));
-      }
-    });
-
-    // Update the background color on change
-    radioInput.addEventListener("change", () => {
-      radioContainers.forEach((element) =>
-        element.classList.remove("selected")
-      );
-      if (radioInput.checked) {
-        container.classList.add("selected");
-      }
-    });
-  });
 };
-
-// Add event listeners to next buttons
-document.getElementById("nextButton").addEventListener("click", () => {
-  saveData();
-});

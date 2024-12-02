@@ -30,6 +30,10 @@
 
       &.selected {
         background-color: var(--option-active-color);
+
+        &:hover {
+          background-color: var(--option-active-color);
+        }
       }
 
       &:hover {

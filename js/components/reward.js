@@ -44,11 +44,11 @@ export const onRewardContainerShown = () => {
 /**
  * Generates a reward code and updates the DOM.
  */
-const generateCode = () => {
+export const generateCode = () => {
   const year = sumLastTwoDigits(parseInt(localStorage.getItem("year")));
   const action = getLastFourChars(localStorage.getItem("action"));
   codeGenerated = `${year}${action}`;
-  document.getElementById("rewardCode").textContent = codeGenerated;
+  updateDOMElement("rewardCode", codeGenerated);
 };
 
 /**
@@ -88,23 +88,24 @@ export const getLastFourChars = (str) => {
 /**
  * Starts a countdown timer and updates the DOM.
  */
-const startTimer = () => {
+export const startTimer = () => {
   const timerElement = document.getElementById("timerText");
-  let timeLeft = 0.5 * 60;
+  let timeLeft = 20 * 60;
 
   const updateTimer = () => {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
-    timerElement.textContent = `${minutes}:${
-      seconds < 10 ? "0" : ""
-    }${seconds}`;
+    updateDOMElement(
+      "timerText",
+      `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`
+    );
     if (timeLeft > 0) {
       timeLeft--;
       setTimeout(updateTimer, 1000);
     } else {
       document.getElementById("timerContainer").classList.add("expired");
       timerElement.remove();
-      document.getElementById("timerExpired").style.display = "block";
+      updateDOMElement("timerExpired", "block", "style", "display");
     }
   };
 
@@ -114,11 +115,12 @@ const startTimer = () => {
 /**
  * Adds event listeners to buttons for copying code and opening a URL.
  */
-const listenerButtons = () => {
+export const listenerButtons = () => {
   const copyButton = document.getElementById("copyButton");
   const sirokoButton = document.getElementById("sirokoButton");
-  if (copyButton) {
-    copyButton.addEventListener("click", () => {
+  addClickListener(
+    copyButton,
+    () => {
       navigator.clipboard
         .writeText(codeGenerated)
         .then(() => {
@@ -127,15 +129,53 @@ const listenerButtons = () => {
         .catch((err) => {
           showAlert("error", "Failed to copy code.");
         });
-    });
-  } else {
-    showAlert("error", "Failed to copy code.");
-  }
-  if (sirokoButton) {
-    sirokoButton.addEventListener("click", () => {
+    },
+    "Failed to copy code."
+  );
+  addClickListener(
+    sirokoButton,
+    () => {
       window.open("https://siroko.com/", "_blank");
-    });
+    },
+    "Fallo al abrir siroko.com"
+  );
+};
+
+/**
+ * Adds a click event listener to a button and shows an alert if the button is not found.
+ *
+ * @param {HTMLElement} button - The button element.
+ * @param {Function} callback - The callback function to execute on click.
+ * @param {string} errorMessage - The error message to show if the button is not found.
+ */
+const addClickListener = (button, callback, errorMessage) => {
+  if (button) {
+    button.addEventListener("click", callback);
   } else {
-    showAlert("info", "Fallo al abrir siroko.com");
+    showAlert("error", errorMessage);
+  }
+};
+
+/**
+ * Updates the content or style of a DOM element.
+ *
+ * @param {string} elementId - The ID of the DOM element.
+ * @param {string} value - The value to set.
+ * @param {string} [property="textContent"] - The property to update (default is "textContent").
+ * @param {string} [styleProperty] - The style property to update (if applicable).
+ */
+const updateDOMElement = (
+  elementId,
+  value,
+  property = "textContent",
+  styleProperty
+) => {
+  const element = document.getElementById(elementId);
+  if (element) {
+    if (styleProperty) {
+      element.style[styleProperty] = value;
+    } else {
+      element[property] = value;
+    }
   }
 };

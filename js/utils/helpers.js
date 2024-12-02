@@ -11,7 +11,7 @@ export const updateText = (newData) => {
   const headerTitle = document.getElementById("headerTitle");
   const labelStep = document.getElementById("labelStep");
 
-  stepPill.textContent = newData.pill;
-  headerTitle.textContent = newData.title;
-  labelStep.textContent = newData.label_step;
+  if (stepPill) stepPill.textContent = newData.pill;
+  if (headerTitle) headerTitle.textContent = newData.title;
+  if (labelStep) labelStep.textContent = newData.label_step;
 };

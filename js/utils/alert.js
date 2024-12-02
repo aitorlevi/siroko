@@ -8,6 +8,12 @@ export const showAlert = (type, message) => {
   const alertContainer = document.createElement("div");
   alertContainer.className = `alert alert-${type}`;
   alertContainer.textContent = message;
+  alertContainer.setAttribute("role", "alert");
+
+  const existingAlert = document.querySelector(".alert");
+  if (existingAlert) {
+    existingAlert.remove();
+  }
 
   document.body.appendChild(alertContainer);
 

@@ -1,9 +1,4 @@
-import { updateText } from "../utils/helpers.js";
-const radioContainers = document.getElementById("multiStepForm")
-  ? document
-      .getElementById("multiStepForm")
-      .querySelectorAll(".radio-container")
-  : [];
+import * as HelpersJS from "../utils/helpers.js";
 export const formState = {
   currentStep: 0,
   stepData: [],
@@ -13,38 +8,44 @@ export const formState = {
  * Fetches form data and initializes the form steps.
  */
 document.addEventListener("DOMContentLoaded", () => {
-  fetchFormData();
+  showFormData();
   setupRadioContainers();
 });
 
 /**
  * Fetches form data from the specified URL.
  */
-const fetchFormData = () => {
-  fetch("../../formData.json")
-    .then((response) => response.json())
-    .then((data) => {
-      formState.stepData = data.steps;
-      showStep(formState.currentStep);
-      setupNextButton();
-    })
-    .catch((error) => console.error("Error fetching form data:", error));
+export const showFormData = async () => {
+  const data = await HelpersJS.fetchData();
+  if (data && data.steps) {
+    formState.stepData = data.steps;
+    showStep(formState.currentStep);
+    setupNextButton();
+  }
 };
 
 /**
  * Sets up the event listener for the next button.
  */
-const setupNextButton = () => {
-  document.getElementById("nextButton").addEventListener("click", saveData);
+export const setupNextButton = () => {
+  HelpersJS.addClickListener(
+    document.getElementById("nextButton"),
+    saveData,
+    "No se han podido guardar los datos"
+  );
 };
 
 /**
  * Sets up event listeners for radio containers.
  */
-const setupRadioContainers = () => {
-  radioContainers.forEach((container) => {
+export const setupRadioContainers = () => {
+  document.querySelectorAll(".radio-container").forEach((container) => {
     const radioInput = container.querySelector("input[type='radio']");
-    container.addEventListener("click", () => handleRadioClick(radioInput));
+    HelpersJS.addClickListener(
+      container,
+      () => handleRadioClick(radioInput),
+      "No se ha podido seleccionar la opción"
+    );
     radioInput.addEventListener("change", () =>
       handleRadioChange(radioInput, container)
     );
@@ -70,7 +71,9 @@ const handleRadioClick = (radioInput) => {
  * @param {HTMLElement} container - The container element.
  */
 const handleRadioChange = (radioInput, container) => {
-  radioContainers.forEach((element) => element.classList.remove("selected"));
+  document
+    .querySelectorAll(".radio-container")
+    .forEach((element) => element.classList.remove("selected"));
   if (radioInput.checked) {
     container.classList.add("selected");
   }
@@ -80,15 +83,10 @@ const handleRadioChange = (radioInput, container) => {
  * Saves data to localStorage based on the current step.
  */
 export const saveData = () => {
-  switch (formState.currentStep) {
-    case 0:
-      saveToLocalStorage("year", "input[name='year']:checked");
-      break;
-    case 1:
-      saveToLocalStorage("action", "input[name='action']:checked");
-      break;
-    default:
-      return;
+  if (formState.currentStep === 0) {
+    saveToLocalStorage("year", "input[name='year']:checked");
+  } else {
+    saveToLocalStorage("action", "input[name='action']:checked");
   }
   nextStep();
 };
@@ -130,8 +128,8 @@ export const checkSelections = () => {
  * Displays the reward container.
  */
 export const showReward = () => {
-  document.getElementById("multiStepForm").style.display = "none";
-  document.getElementById("rewardContainer").style.display = "flex";
+  HelpersJS.updateDOMElement("multiStepForm", "none", "style", "display");
+  HelpersJS.updateDOMElement("rewardContainer", "flex", "style", "display");
 };
 
 /**
@@ -141,9 +139,7 @@ export const showReward = () => {
  */
 export const showStep = (stepNumber) => {
   const step = formState.stepData[stepNumber];
-  const stepElements = document
-    .getElementById("multiStepForm")
-    .querySelectorAll("div.step-form");
+  const stepElements = document.querySelectorAll("div.step-form");
 
   stepElements.forEach((stepElement, index) => {
     stepElement.style.display = index === stepNumber ? "flex" : "none";
@@ -155,7 +151,7 @@ export const showStep = (stepNumber) => {
     }
   });
 
-  updateText(step);
+  HelpersJS.updateText(step);
   updateHeaderCopy(step.copy);
 };
 

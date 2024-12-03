@@ -1,36 +1,108 @@
-import * as rewardJS from "../../js/components/reward.js";
-import * as alertJS from "../../js/utils/alert.js";
-import * as helpersJS from "../../js/utils/helpers.js";
-import fetchMock from "jest-fetch-mock";
+import * as RewardJS from "../../js/components/reward.js";
+import * as AlertJS from "../../js/utils/alert.js";
+import * as HelpersJS from "../../js/utils/helpers.js";
 
-fetchMock.enableMocks();
+beforeAll(() => {
+  global.IntersectionObserver = class {
+    constructor(callback) {
+      this.callback = callback;
+    }
+    observe() {
+      this.callback([{ isIntersecting: true }]);
+    }
+    unobserve() {}
+    disconnect() {}
+  };
+});
+
+afterEach(() => {
+  jest.restoreAllMocks();
+});
+
+describe("reward container observer", () => {
+  beforeEach(() => {
+    document.body.innerHTML = '<div id="rewardContainer"></div>';
+  });
+
+  test("should call onRewardContainerShown and listenerButtons when reward container is shown", () => {
+    const spyOnRewardContainerShown = jest
+      .spyOn(RewardJS, "onRewardContainerShown")
+      .mockImplementation(() => {});
+    const spyListenerButtons = jest
+      .spyOn(RewardJS, "listenerButtons")
+      .mockImplementation(() => {});
+
+    const rewardContainer = document.getElementById("rewardContainer");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          RewardJS.onRewardContainerShown();
+          RewardJS.listenerButtons();
+        }
+      });
+    });
+    observer.observe(rewardContainer);
+
+    observer.callback([{ isIntersecting: true }]);
+
+    expect(spyOnRewardContainerShown).toHaveBeenCalled();
+    expect(spyListenerButtons).toHaveBeenCalled();
+    observer.disconnect();
+  });
+});
+
+describe("onRewardContainerShown", () => {
+  test("should update text with fetched data", async () => {
+    const spyFetchData = jest
+      .spyOn(HelpersJS, "fetchData")
+      .mockReturnValueOnce({ reward: "test" });
+    const spyUpdateText = jest
+      .spyOn(HelpersJS, "updateText")
+      .mockImplementation(() => {});
+    await RewardJS.onRewardContainerShown();
+    expect(spyFetchData).toHaveBeenCalled();
+    expect(spyUpdateText).toHaveBeenCalled();
+  });
+
+  test("should show alert on fetch error", async () => {
+    const spyFetchData = jest
+      .spyOn(HelpersJS, "fetchData")
+      .mockReturnValueOnce(null);
+    const spyUpdateText = jest
+      .spyOn(HelpersJS, "updateText")
+      .mockImplementation(() => {});
+    await RewardJS.onRewardContainerShown();
+    expect(spyFetchData).toHaveBeenCalled();
+    expect(spyUpdateText).not.toHaveBeenCalled();
+  });
+});
 
 describe("sumLastTwoDigits", () => {
   test("should return the sum of the last two digits of a number", () => {
-    expect(rewardJS.sumLastTwoDigits(12345)).toBe(9);
-    expect(rewardJS.sumLastTwoDigits(9876)).toBe(13);
-    expect(rewardJS.sumLastTwoDigits(100)).toBe(0);
+    expect(RewardJS.sumLastTwoDigits(12345)).toBe(9);
+    expect(RewardJS.sumLastTwoDigits(9876)).toBe(13);
+    expect(RewardJS.sumLastTwoDigits(100)).toBe(0);
   });
 
   test("should handle single-digit numbers", () => {
-    expect(rewardJS.sumLastTwoDigits(5)).toBe(5);
+    expect(RewardJS.sumLastTwoDigits(5)).toBe(5);
   });
 
   test("should handle negative numbers", () => {
-    expect(rewardJS.sumLastTwoDigits(-12345)).toBe(0);
+    expect(RewardJS.sumLastTwoDigits(-12345)).toBe(0);
   });
 });
 
 describe("getLastFourChars", () => {
   test("should return the last four characters of a string or less", () => {
-    expect(rewardJS.getLastFourChars("1234567890")).toBe("7890");
-    expect(rewardJS.getLastFourChars("abcd")).toBe("bcd");
+    expect(RewardJS.getLastFourChars("1234567890")).toBe("7890");
+    expect(RewardJS.getLastFourChars("abcd")).toBe("bcd");
   });
 
   test("should return an empty string if the input is not a string", () => {
-    expect(rewardJS.getLastFourChars(12345)).toBe("");
-    expect(rewardJS.getLastFourChars(null)).toBe("");
-    expect(rewardJS.getLastFourChars(undefined)).toBe("");
+    expect(RewardJS.getLastFourChars(12345)).toBe("");
+    expect(RewardJS.getLastFourChars(null)).toBe("");
+    expect(RewardJS.getLastFourChars(undefined)).toBe("");
   });
 });
 
@@ -42,7 +114,7 @@ describe("generateCode", () => {
   });
 
   test("should generate the correct reward code", () => {
-    rewardJS.generateCode();
+    RewardJS.generateCode();
     expect(document.getElementById("rewardCode").textContent).toBe("5Test");
   });
 });
@@ -59,7 +131,7 @@ describe("startTimer", () => {
 
   test("should start the timer and update the DOM", () => {
     jest.useFakeTimers();
-    rewardJS.startTimer();
+    RewardJS.startTimer();
     expect(document.getElementById("timerText").textContent).toBe("20:00");
     jest.advanceTimersByTime(1000);
     expect(document.getElementById("timerText").textContent).toBe("19:59");
@@ -81,7 +153,7 @@ describe("listenerButtons", () => {
     `;
     localStorage.setItem("year", "2023");
     localStorage.setItem("action", "actionTest");
-    rewardJS.generateCode();
+    RewardJS.generateCode();
   });
 
   test("should copy the reward code to clipboard", () => {
@@ -89,7 +161,7 @@ describe("listenerButtons", () => {
     navigator.clipboard = {
       writeText: jest.fn().mockResolvedValueOnce(),
     };
-    rewardJS.listenerButtons();
+    RewardJS.listenerButtons();
     copyButton.click();
     expect(navigator.clipboard.writeText).toHaveBeenCalledWith("5Test");
   });
@@ -97,32 +169,8 @@ describe("listenerButtons", () => {
   test("should open siroko.com in a new tab", () => {
     const sirokoButton = document.getElementById("sirokoButton");
     window.open = jest.fn();
-    rewardJS.listenerButtons();
+    RewardJS.listenerButtons();
     sirokoButton.click();
     expect(window.open).toHaveBeenCalledWith("https://siroko.com/", "_blank");
-  });
-});
-
-describe("onRewardContainerShown", () => {
-  beforeEach(() => {
-    fetch.resetMocks();
-    document.body.innerHTML = '<div id="rewardCode"></div>';
-  });
-
-  test("should update text with fetched data", async () => {
-    const generateCodeMock = jest
-      .spyOn(rewardJS, "generateCode")
-      .mockImplementation(() => {});
-    await rewardJS.onRewardContainerShown();
-    expect(generateCodeMock).toHaveBeenCalled();
-  });
-
-  test("should show alert on fetch error", async () => {
-    fetch.mockReject(new Error("Fetch error"));
-    const generateCodeMock = jest
-      .spyOn(rewardJS, "generateCode")
-      .mockImplementation(() => {});
-    await rewardJS.onRewardContainerShown();
-    expect(generateCodeMock).toHaveBeenCalled();
   });
 });

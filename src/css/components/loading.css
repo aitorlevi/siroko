@@ -1,0 +1,29 @@
+#loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 990;
+
+  .spinner {
+    width: 64px;
+    height: 64px;
+    border: 8px solid rgba(var(--white-rgb-color), 0.3);
+    border-top: 8px solid var(--white-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,6 +1,6 @@
-#Prueba técnica para Siroko
+# Prueba técnica para Siroko
 
-#Implementación
+## Implementación
 - Diseño requerido en Figma
 - Notificaciones para informar de eventos o errores
 - Loading
@@ -8,7 +8,7 @@
 - Unit tests
 
 
-#Pendiente
+## Pendiente
 - Completar covertura de test 100%
 
 

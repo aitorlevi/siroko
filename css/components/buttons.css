@@ -35,16 +35,16 @@
   0% {
     background-position: 0px;
   }
-  45% {
+  25% {
     background-position: 22px;
   }
-  50% {
+  30% {
     background-position: 22px -99px;
   }
-  55% {
+  40% {
     background-position: -30px 0px;
   }
-  100% {
+  65% {
     background-position: 0px;
   }
 }

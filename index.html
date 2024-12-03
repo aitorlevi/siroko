@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Prueba técnica para Siroko" />
     <title>Siroko</title>
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,8 +20,8 @@
   <body>
     <main>
       <header>
-        <img class="logo-sm" src="./assets/images/logo_sm.svg" />
-        <img class="logo-md" src="./assets/images/logo_md.svg" />
+        <img class="logo-sm" src="./assets/images/logo_sm.svg" alt="Siroko" />
+        <img class="logo-md" src="./assets/images/logo_md.svg" alt="Siroko" />
       </header>
       <div class="header-content" id="headerContent">
         <div class="step-pill">
@@ -32,64 +33,72 @@
         <span class="sub-title" id="labelStep"></span>
         <div class="step-form">
           <span class="radio-container">
-            <input type="radio" name="year" value="2016" checked />
-            <label for="2016">2016</label>
+            <input type="radio" id="year1" name="year" value="2016" checked />
+            <label for="year1">2016</label>
           </span>
           <span class="radio-container">
-            <input type="radio" name="year" value="2017" />
-            <label for="2017">2017</label>
+            <input type="radio" id="year2" name="year" value="2017" />
+            <label for="year2">2017</label>
           </span>
           <span class="radio-container">
-            <input type="radio" name="year" value="2018" />
-            <label for="2018">2018</label>
+            <input type="radio" id="year3" name="year" value="2018" />
+            <label for="year3">2018</label>
           </span>
           <span class="radio-container">
-            <input type="radio" name="year" value="2019" />
-            <label for="2019">2019</label>
+            <input type="radio" id="year4" name="year" value="2019" />
+            <label for="year4">2019</label>
           </span>
           <span class="radio-container">
-            <input type="radio" name="year" value="2020" />
-            <label for="2020">2020</label>
+            <input type="radio" id="year5" name="year" value="2020" />
+            <label for="year5">2020</label>
           </span>
           <span class="radio-container">
-            <input type="radio" name="year" value="2021" />
-            <label for="2021">2021</label>
+            <input type="radio" id="year6" name="year" value="2021" />
+            <label for="year6">2021</label>
           </span>
         </div>
         <div class="step-form">
           <span class="radio-container">
             <input
               type="radio"
+              id="action1"
               name="action"
               value="Segaría la navaja"
               checked
             />
-            <label for="Segaría la navaja">Segaría la navaja</label>
-          </span>
-          <span class="radio-container">
-            <input type="radio" name="action" value="Rechazaría un cachopo" />
-            <label for="Rechazaría un cachopo">Rechazaría un cachopo</label>
+            <label for="action1">Segaría la navaja</label>
           </span>
           <span class="radio-container">
             <input
               type="radio"
+              id="action2"
+              name="action"
+              value="Rechazaría un cachopo"
+            />
+            <label for="action2">Rechazaría un cachopo</label>
+          </span>
+          <span class="radio-container">
+            <input
+              type="radio"
+              id="action3"
               name="action"
               value="Renunciaría a mis tierras"
             />
-            <label for="Renunciaría a mis tierras"
-              >Renunciaría a mis tierras</label
-            >
+            <label for="action3">Renunciaría a mis tierras</label>
           </span>
           <span class="radio-container">
-            <input type="radio" name="action" value="Regalaría una ternera" />
-            <label for="Regalaría una ternera">Regalaría una ternera</label>
+            <input
+              type="radio"
+              id="action4"
+              name="action"
+              value="Regalaría una ternera"
+            />
+            <label for="action4">Regalaría una ternera</label>
           </span>
         </div>
         <button type="button" class="cta-button" id="nextButton">
           <span>Siguiente</span>
-          <div class="animation">
-            <!-- <img src="./assets/images/arrow.svg" /> -->
-          </div>
+          <div class="animation"></div>
         </button>
       </form>
 
@@ -121,7 +130,7 @@
 
     <footer>
       <span>2016-2021 Siroko Solutions S.L.</span><br /><br /><span
-        >Todos los derechos reservados. <a>Ver bases</a>.</span
+        >Todos los derechos reservados. <a href=".">Ver bases</a>.</span
       >
     </footer>
 

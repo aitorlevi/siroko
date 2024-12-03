@@ -12,7 +12,7 @@
 body {
   font-family: "Inconsolata", serif;
   background-color: var(--background-color);
-  background-image: url("../../assets/images/background.jpg");
+  background-image: url("../../assets/images/background.webp");
   height: 100vh;
   background-size: cover;
   background-position: center top;
